@@ -1,0 +1,119 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Gestion utilisateur</title>
+        <meta charset="utf-8"> 
+    </head>
+    <body>
+
+        <style>
+            input[type=text],input[type=email]{
+                width: 50%;
+                padding: 12px 20px;
+                margin: 8px 0 8px 15px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                box-sizing: border-box;
+            }
+
+            .btn {
+                width: 25%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0 0 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .container{
+                margin : 50px 0 50px 200px
+            }
+            .titre {
+                text-align: center;
+            }
+            label {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            table {
+                border-collapse: collapse;
+                width: 75%;
+            }
+
+            th, td {
+            text-align: left;
+            padding: 8px;
+            }
+            th {
+            background-color: #080100 ;
+            color: white;
+            }
+            .pagination{
+                margin: 50px 0 0 150px; 
+            }
+            .pagination span{
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+                border: 2px solid #ccc;
+            }
+            .pagination span:hover:not(.active) {background-color: #4CAF50;}
+
+            tr:nth-child(even){background-color:#D5D8DC}
+
+            
+        </style>
+
+        <div class="titre">
+            <h1>Gestion d'utilisateur</h1>
+        </div>
+        <div class ="container">
+            {{ form_start(form) }}
+            
+                <label for="nom">Nom utilisateur <br></label>
+                {{ form_widget(form.nom) }}<br>
+                <label for="nom">Prenom utilisateur <br></label>
+                {{ form_widget(form.prenom) }}<br>
+                <label for="nom">Email utilisateur <br></label>
+                {{ form_widget(form.email) }}
+            {{ form_end(form) }}
+        </div>
+        <hr>
+        <div class="titre">
+            <h1>Liste d'utilisateur</h1>
+            {# {{ name[0].nom }} #}
+        </div>
+        <div class ="container">
+        
+            <table>
+                <tr>
+                    <th>Numero</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+                
+                {% for utilisateur in utilisateurs %}
+                    <tr>
+                        <td>{{ utilisateur.id }}</td>
+                        <td>{{ utilisateur.nom }}</td>
+                        <td>{{ utilisateur.prenom }}</td>
+                        <td>{{ utilisateur.email }}</td>
+                        <td><a href="{{ path('supprimer_utlisateur', {'id': utilisateur.id}) }}">Supprimer</a></td>
+                    </tr>
+                {% endfor %}
+                
+            </table>
+            <div class= "pagination">
+            {{ knp_pagination_render(utilisateurs) }}
+            </div>
+        </div>
+        
+
+    </body>
+</html>
